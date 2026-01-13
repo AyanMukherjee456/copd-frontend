@@ -1,9 +1,9 @@
 // ================= CONFIG =================
 const API_URL = "https://copd-fastapi-backend.onrender.com/predict";
 
-fetch("https://copd-fastapi-backend.onrender.com/predict", {
-  method: "OPTIONS"
-}).catch(() => {});
+//fetch("https://copd-fastapi-backend.onrender.com/predict", {
+//  method: "OPTIONS"
+//}).catch(() => {});
 
 // ================= DOM =================
 const fev1Input = document.getElementById("fev1");
