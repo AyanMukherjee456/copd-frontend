@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COPD Risk Prediction Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>COPD Risk Prediction Tool</h1>
+        <!-- Banner image placeholder (replace via Banana.ai) -->
+        <!-- <img src="placeholder-lung.jpg" alt="Medical illustration of lungs" class="header-image"> -->
+    </header>
+
+    <main>
+        <!-- Demographics Section -->
+        <section class="input-section">
+            <h2>👤 Demographics</h2>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="0" placeholder="Years">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="" disabled selected>Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>                   
+                </select>
+            </div>
+        </section>
+
+        <!-- Smoking History Section -->
+        <section class="input-section">
+            <h2>🚬 Smoking History</h2>
+            <div class="form-group">
+                <label for="smokingStatus">Smoking Status</label>
+                <select id="smokingStatus" name="smokingStatus">
+                    <option value="" disabled selected>Select status</option>
+                    <option value="non">Non-Smoker</option>
+                    <option value="former">Former Smoker</option>
+                    <option value="current">Current Smoker</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="smokingYears">Smoking Years 
+                    <span class="info-icon" title="Total number of years the patient has been smoking. A longer history increases COPD risk.">ℹ️</span>
+                </label>
+                <input type="number" id="smokingYears" name="smokingYears" min="0" placeholder="Years">
+            </div>
+        </section>
+
+        <!-- Health Metrics Section -->
+        <section class="input-section">
+            <h2>🏥 Health Metrics</h2>
+            <div class="form-group">
+                <label for="bmi">BMI 
+                    <span class="info-icon" title="Body Mass Index (BMI) – indicates body fat. BMI outside normal range may influence COPD risk.">ℹ️</span>
+                </label>
+                <input type="number" id="bmi" name="bmi" min="0" step="0.1" placeholder="kg/m²">
+            </div>
+            <div class="form-group">
+                <label for="fev1">FEV1 (%) 
+                    <span class="info-icon" title="Forced Expiratory Volume in 1 second (% predicted) – lower values indicate reduced lung function.">ℹ️</span>
+                </label>
+                <input type="number" id="fev1" name="fev1" min="0" step="0.1" placeholder="%">
+            </div>
+            <div class="form-group">
+                <label for="fvc">FVC (%) 
+                    <span class="info-icon" title="Forced Vital Capacity (% predicted) – measure of lung capacity.">ℹ️</span>
+                </label>
+                <input type="number" id="fvc" name="fvc" min="0" step="0.1" placeholder="%">
+            </div>
+            <div class="form-group">
+                <label for="fev1fvc">FEV1/FVC Ratio (%)</label>
+                <input type="number" id="fev1fvc" name="fev1fvc" readonly placeholder="Auto-calculated">
+            </div>
+        </section>
+
+        <!-- Symptoms Section -->
+        <section class="input-section">
+            <h2>💭 Symptoms</h2>
+            <div class="form-group">
+                <label for="chronicCough">Chronic Cough 
+                    <span class="info-icon" title="Persistent cough lasting several weeks – a common COPD symptom.">ℹ️</span>
+                </label>
+                <select id="chronicCough" name="chronicCough">
+                    <option value="" disabled selected>Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+  <label for="shortnessBreath">
+    Shortness of Breath
+    <span class="info-icon" title="Breathlessness during exertion or rest. A key indicator of COPD severity.">ℹ️</span>
+  </label>
+  <select id="shortnessBreath">
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="priorHospitalization">
+    Prior Hospitalization
+    <span class="info-icon" title="History of hospital admission due to respiratory problems. Strong predictor of COPD risk.">ℹ️</span>
+  </label>
+  <select id="priorHospitalization">
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+  </select>
+</div>
+
+        </section>
+
+        <!-- Laboratory Section -->
+        <section class="input-section">
+            <h2>🔬 Laboratory Data</h2>
+            <div class="form-group">
+                <label for="crp">CRP (mg/L) 
+                    <span class="info-icon" title="C-reactive protein level – marker of inflammation. Elevated CRP can indicate COPD exacerbation.">ℹ️</span>
+                </label>
+                <input type="number" id="crp" name="crp" min="0" step="0.1" placeholder="mg/L">
+            </div>
+            <div class="form-group">
+                <label for="spo2">SpO₂ (%) 
+                    <span class="info-icon" title="Blood oxygen saturation. Lower values indicate poorer oxygenation, which can occur in severe COPD.">ℹ️</span>
+                </label>
+                <input type="number" id="spo2" name="spo2" min="0" step="0.1" placeholder="%">
+            </div>
+        </section>
+
+        <!-- Calculate Button -->
+        <button id="calculateButton">Get COPD Risk Prediction</button>
+
+        <!-- Results Section -->
+        <section id="results" class="results-section">
+            <h2>📝 Results</h2>
+            <p><strong>COPD Prediction:</strong> <span id="predictionOutput">N/A</span></p>
+            <p><strong>COPD Probability:</strong> <span id="probabilityOutput">N/A</span></p>
+            <p><strong>Predicted Severity (%):</strong> <span id="severityOutput">N/A</span></p>
+            <p><strong>Future COPD Risk Probability:</strong> <span id="futureRiskOutput">N/A</span></p>
+        </section>
+        <canvas id="riskChart" height="120"></canvas>
+
+        <!-- Summary Card -->
+        <section id="summaryCard" class="summary-card">
+            <h2>🔍 Risk Score Summary</h2>
+            <!--<p>Interpret the patient’s risk here. Use this information to guide clinical decisions.</p>-->
+			<p id="summaryText">Personalized recommendations will appear here after prediction.</p>
+            <h3>Next Recommended Clinical Steps</h3>
+            <ul>
+                <li>Consult a pulmonologist for further evaluation.</li>
+                <li>Recommend smoking cessation if applicable.</li>
+                <li>Schedule follow-up spirometry and lab tests.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Medical Dashboard &copy; 2025</p>
+    </footer>
+
+    <!-- Link to JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+
+
+
+
+
+</body>
+</html>
